@@ -8,6 +8,8 @@ const app = express();
 const adminRoutes = require("./routes/admin2.js");
 const shopeRoutes = require("./routes/shope2.js");
 
+//  COntroller 
+const  errorController = require("./controller/error.js");
 
 // Body parser middlware help us to read data from (req.body) when a client sends a form or JSON
 app.use(bodyParser.urlencoded({extended:true})) ;//; this is middlware  
@@ -29,9 +31,13 @@ app.get('/', (req, res) => {
 
 
 // 404 handler (should always be last)
-app.use((req, res) => {
-  res.status(404).send('<h1>Page not found</h1>');
-});
+// app.use((req, res) => {
+//   res.status(404).send('<h1>Page not found</h1>');
+// }); 
+//  Intead of this use CONTROLLER to handle the logic 
+
+
+app.use(errorController.get404) ; // 404 error handler middlware 
 
 
 app.listen(3001, () => {
